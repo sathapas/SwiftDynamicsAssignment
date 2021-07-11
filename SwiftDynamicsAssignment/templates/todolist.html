@@ -1,0 +1,110 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+<h2 align="center">1) ให้ทำ todo list โดยใช้ django framework มีใช้หน้า server side หรือ api ก็ได้</h2>
+
+
+<div class="row">
+    <div class="col-md-6" style="margin: 0 auto;">
+        <form action="{% url 'searchdata'%}">
+            <label for="query">Search by title</label>
+            <input type="search" class="form-control" name="query" id="query">
+            <button type="submit" class="btn btn-primary" style="display: block;margin: 1rem auto;">Search</button>
+        </form>
+    </div>
+</div>
+<h4 align="center">add todo list</h4>
+    <form action="todo_submit"  method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+             <label for="title">Title</label>
+             <input type="text" class="form-control" id="title" name="title" value="todo name">
+
+
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3">detail</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="priority">Priority</label>
+            <input type="number" class="form-control" id="priority" name="priority" value="1">
+            
+        </div>
+        <input type="submit" value = "submit" class="btn btn-primary" style="display: block;margin: 1rem auto;">
+    
+    
+    
+   </form>
+   <h4 align="center">todo list</h4>
+
+   <form action="sortdata" method="post">
+    {% csrf_token %}
+       <input type="submit" value="sort by priority" class="btn btn-primary" style="display: block;margin: 1rem auto;">
+   </form>
+
+
+
+{% if command == 0 %}
+    {% for todo in todolists %}
+
+
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">{{todo.title}}</div>
+            <div class="card-body">
+            <p class="card-title">Priority = {{todo.priority}}</p>
+            <p class="card-text">{{todo.description}}</p>
+            <p class="card-text">{{todo.created_at}}</p>
+            <p class="card-text">ID : {{todo.id}}</p>
+            <a href="/delete/{{todo.id}}" class="btn btn-danger">Delete</a>
+            <a href="/edit/{{todo.id}}" class="btn btn-warning">Edit</a>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% elif command == 1 %}
+
+    {% for todo in sorted_todos %}
+
+
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">{{todo.title}}</div>
+            <div class="card-body">
+            <p class="card-title">Priority = {{todo.priority}}</p>
+            <p class="card-text">{{todo.description}}</p>
+            <p class="card-text">{{todo.created_at}}</p>
+            <p class="card-text">ID : {{todo.id}}</p>
+            <a href="/delete/{{todo.id}}" class="btn btn-danger">Delete</a>
+            <a href="/edit/{{todo.id}}" class="btn btn-warning">Edit</a>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% elif command == 2 %}
+
+    {% for todo in search_todos %}
+
+
+        <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+            <div class="card-header">{{todo.title}}</div>
+            <div class="card-body">
+            <p class="card-title">Priority = {{todo.priority}}</p>
+            <p class="card-text">{{todo.description}}</p>
+            <p class="card-text">{{todo.created_at}}</p>
+            <p class="card-text">ID : {{todo.id}}</p>
+            <a href="/delete/{{todo.id}}" class="btn btn-danger">Delete</a>
+            <a href="/edit/{{todo.id}}" class="btn btn-warning">Edit</a>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endif %}
+
+
+{% endblock %}

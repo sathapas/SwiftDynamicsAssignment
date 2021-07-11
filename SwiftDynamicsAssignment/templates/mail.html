@@ -1,0 +1,36 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+<h2 align="center">2) สร้างระบบช่วยส่งอีเมลล์ตอบกลับ ด้วย Django framework  มีใช้หน้า server side หรือ api ก็ได้โดยในการส่งให้ระบุอีเมลล์ผู้รับ ชื่อ เนื้อความ</h2>
+<h4 align="center">email</h4>
+{% if command == 1 %}
+<div class="alert alert-primary" role="alert">
+    <h2 align="center">e-mail has been sent.</h2>
+{% elif command == 2 %}
+<form action="contact"  method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="priority">To</label>
+        <input type="email" class="form-control" id="to-email" name="to-email" >
+
+        
+    </div>
+    <div class="form-group">
+         <label for="title">Subject</label>
+         <input type="text" class="form-control" id="message-name" name="message-name">
+    </div>
+
+    <div class="form-group">
+        <label for="description">Message</label>
+        <textarea class="form-control" id="message" name="message" rows="3"></textarea>
+    </div>
+
+
+    <input type="submit" value = "send" class="btn btn-primary" style="display: block;margin: 1rem auto;">
+
+</form>
+
+
+{% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+
+
+<h4 align="center">edit todo</h4>
+    <form action="/update/{{id}}"  method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+             <label for="title">Title</label>
+             <input type="text" class="form-control" id="title" name="title" value="{{title}}">
+
+
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3">{{description}}</textarea>
+            
+        </div>
+
+        <div class="form-group">
+            <label for="priority">Priority</label>
+            <input type="number" class="form-control" id="priority" name="priority" value="{{priority}}">
+            
+        </div>
+        <input type="submit" value = "update" class="btn btn-primary" style="display: block;margin: 1rem auto;">
+    
+    
+    
+   </form>
+  
+
+
+
+
+
+
+{% endblock %}
