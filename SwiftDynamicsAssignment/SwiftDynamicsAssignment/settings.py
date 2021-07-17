@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+import rest_framework
+
+from rest_framework.settings import DEFAULTS
 import todoApp
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,7 +42,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'todoApp'
+    'todoApp',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'api'
 ]
 
 MIDDLEWARE = [
@@ -134,7 +141,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'nut.1230@gmail.com'
 # app password
-EMAIL_HOST_PASSWORD = 'xozhpigobenkiddv'
+#EMAIL_HOST_PASSWORD = 'xozhpigobenkiddv'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication'
+    ]
+}
